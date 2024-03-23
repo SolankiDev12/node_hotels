@@ -1,10 +1,14 @@
 // database ke saath conectivity bihtayega ye file
 
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 
 //define mongodb url 
-const mongoURL = 'mongodb://localhost:27017/hotels'
+// const mongoURL = 'mongodb://localhost:27017/hotels'
+// const mongoURL = 'mongodb+srv://DevSolanki:devsolanki1234@cluster0.y4skvrl.mongodb.net/'
+// const mongoURL = process.env.MONGODB_URL_LOCAL
+const mongoURL = process.env.MONGODB_URL;
+
 
 mongoose.connect(mongoURL,{
     useNewUrlParser : true, //yeh naya url hai  makes sures we work with new mongodb
