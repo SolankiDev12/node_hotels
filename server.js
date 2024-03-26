@@ -3,9 +3,8 @@ const app = express();
 
 const db = require('./db');
 const person = require('./models/person');
-
-const passport = require('./auth');
 require('dotenv').config();
+const passport = require('./auth');
 
 
 const bodyParser = require('body-parser');
@@ -27,10 +26,10 @@ app.get('/', localAuthMiddleware, function (req, res) {
 });
 
 const personrouter = require('./routes/personRoutes');
-app.use('/person',localAuthMiddleware, personrouter);
+app.use('/person', personrouter);
 
 const menurouter = require('./routes/menuItemRoutes');
-app.use('/menu',localAuthMiddleware, menurouter);
+app.use('/menu', localAuthMiddleware, menurouter);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
