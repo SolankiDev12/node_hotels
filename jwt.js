@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken');
 
 const jwtAuthMiddleware = (req,res,next)=>{
 
+        const authorization = req.headers.authorization
+        if(!authorization) return res.status(401).json({error:'Token not found'});
         //extract karna hai jwt token ko from headers
-        const token = req.headers.authorization.split('')[1];
+        const token = req.headers.authorization.split(' ')[1];
         //bearer index 0 pe jayega and token index 1 pe 
         if(!token) return res.status(401).json({error:'Unauthorized'});
 
@@ -28,6 +30,6 @@ const jwtAuthMiddleware = (req,res,next)=>{
 //func to create token
 const generateToken = (userdata) =>
 {
-    return jwt.sign(userdata,process.env.JWT_SECRET);
+    return jwt.sign(userdata,process.env.JWT_SECRET,{expiresIn:300000});
 }
 module.exports = {jwtAuthMiddleware,generateToken}

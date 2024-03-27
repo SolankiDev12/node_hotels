@@ -28,7 +28,7 @@ router.post('/signup',async (req,res)=>{
 })
 
 
-router.get('/', function(req,res)
+router.get('/',jwtAuthMiddleware, function(req,res)
 {
     res.send('Aukaaatt!!!!');
 })
@@ -91,5 +91,44 @@ router.delete('/:id',async(req,res)=>{
     }
 })
 
+router.post('/login',async(req,res)=>{
+    try{
+            const {username,password}=req.body;
+
+            const user = await person.findOne({username:username});
+            if(!user || (await user.comparePassword(password)))
+            {
+                return res.status(401).json({error:'Invalid username or password'});
+            }
+            const payload = {
+                id : user.id,
+                username : user.username
+            }
+            const token = generateToken(payload);
+            res.json({token});
+    }
+    catch(err)
+    {
+        console.error(err);
+        res.status(500).json({error:'Internal Server Error'});
+
+    }
+})
+
+router.get('/profile',jwtAuthMiddleware,async(req,res)=>{
+    try{
+        const  userData = req.user;
+        console.log("User Data:",userData);
+
+        const userId = userData.id;
+        const user = await person.findById(userId);
+        res.status(200).json({user});
+    }
+    catch(err)
+    {
+        console.error(err);
+        res.status(500).json({error:'Internal Server Error'});
+    }
+})
 
 module.exports = router;
