@@ -1,6 +1,4 @@
 const express = require('express');
-
-
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 

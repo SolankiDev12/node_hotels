@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-
 const jwtAuthMiddleware = (req,res,next)=>{
 
         const authorization = req.headers.authorization
@@ -24,7 +23,6 @@ const jwtAuthMiddleware = (req,res,next)=>{
         }
 
 }
-
 
 
 //func to create token
