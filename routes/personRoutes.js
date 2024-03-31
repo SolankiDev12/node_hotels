@@ -30,7 +30,7 @@ router.post('/signup',async (req,res)=>{
 
 router.get('/',jwtAuthMiddleware, function(req,res)
 {
-    res.send('Aukaaatt!!!!');
+    res.send('Aukaaatt!!!');
 })
 
 router.get('/:workType',async(req,res)=>{
